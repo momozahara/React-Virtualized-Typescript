@@ -20,7 +20,7 @@ const WindowScroller = _WindowScroller as unknown as FC<WindowScrollerProps>;
 
 const CellMeasurer = _CellMeasurer as unknown as FC<CellMeasurerProps>;
 
-const tList = new Array(200)
+const tList = new Array(100)
   .fill(true)
   .map(() => [`Hello: ${faker.name.fullName()}`, faker.lorem.paragraphs()]);
 
@@ -74,6 +74,9 @@ export default function Virtualize() {
                 onRowsRendered={({ stopIndex }) => {
                   if (stopIndex + 1 === list.length) {
                     for (let i = stopIndex; i < stopIndex + 5; i++) {
+                      if (list.length === tList.length) {
+                        return;
+                      }
                       setList((oldArray) => [...oldArray, tList[i]]);
                     }
                   }
